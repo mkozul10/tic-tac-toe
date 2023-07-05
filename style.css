@@ -1,0 +1,26 @@
+html,body{
+    min-height: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#container{
+    display: grid;
+    grid-template-columns: repeat(3,50px);
+    grid-template-rows: repeat(3,50px); 
+}
+.field{
+    border:solid black 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#data{
+    display: flex;
+    flex-direction: column;
+}
+#players-data{
+    display: flex;
+    flex-direction: column;
+}
