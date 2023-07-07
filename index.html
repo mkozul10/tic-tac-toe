@@ -8,16 +8,28 @@
     <script src="source.js" defer></script>
 </head>
 <body>
-    <div id="container">
-        <div class="field" data-j="0" data-i="0" data-index="0">X</div>
-        <div class="field" data-j="1" data-i="0" data-index="1">O</div>
-        <div class="field" data-j="2" data-i="0" data-index="2">O</div>
-        <div class="field" data-j="0" data-i="1" data-index="3">X</div>
-        <div class="field" data-j="1" data-i="1" data-index="4">X</div>
-        <div class="field" data-j="2" data-i="1" data-index="5">O</div>
-        <div class="field" data-j="0" data-i="2" data-index="6">O</div>
-        <div class="field" data-j="1" data-i="2" data-index="7">X</div>
-        <div class="field" data-j="2" data-i="2" data-index="8">X</div>
+    <div id="form-container" style="display: flex;">
+        <form id="form1">
+            <input type="text" placeholder="Player1" id="player1">
+            <input type="text" placeholder="Player2" id="player2">
+            <button type="submit">Play</button>
+        </form>
+    </div>
+    <div id="container-all">
+        <p id="turn-p" class="turn"></p>
+        <div id="container">
+            <div class="field" data-y="0" data-x="0" data-index="0"></div>
+            <div class="field" data-y="1" data-x="0" data-index="1"></div>
+            <div class="field" data-y="2" data-x="0" data-index="2"></div>
+            <div class="field" data-y="0" data-x="1" data-index="3"></div>
+            <div class="field" data-y="1" data-x="1" data-index="4"></div>
+            <div class="field" data-y="2" data-x="1" data-index="5"></div>
+            <div class="field" data-y="0" data-x="2" data-index="6"></div>
+            <div class="field" data-y="1" data-x="2" data-index="7"></div>
+            <div class="field" data-y="2" data-x="2" data-index="8"></div>
+        </div>
+        <p id="winner-p" class="turn" style="display:none;background-color:goldenrod;">Winner</p>
+        <button id="refresh-button" style="display:none;">New game</button>
     </div>
 </body>
 </html>
