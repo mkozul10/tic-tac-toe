@@ -5,6 +5,12 @@ html,body{
     align-items: center;
     justify-content: center;
 }
+#container-all{
+    display:none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 #container{
     display: grid;
     grid-template-columns: repeat(3,50px);
@@ -16,11 +22,14 @@ html,body{
     justify-content: center;
     align-items: center;
 }
-#data{
+#data,#players-data{
     display: flex;
     flex-direction: column;
 }
-#players-data{
-    display: flex;
-    flex-direction: column;
+.turn{
+    background-color: aquamarine;
+    border-radius: 2px;
+    font-size: larger;
+    font-family: Verdana;
+
 }
