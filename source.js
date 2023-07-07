@@ -28,7 +28,6 @@ function gameSet(){
             for(let i=0;i<3;i++)
                 for(let j=0;j<3;j++){
                     if((i+j)/2===1)
-                    //pArr[i][j]=getArrValue(i,j);
                     pArr[i]=getArrValue(i,j);
                 }
         }
@@ -36,7 +35,6 @@ function gameSet(){
             for(let i=0;i<3;i++)
                 for(let j=0;j<3;j++){
                     if((i-j)===0)
-                    // pArr[i][j]=getArrValue(i,j);
                     pArr[i]=getArrValue(i,j);
                 }
         }
@@ -58,7 +56,7 @@ function field(){
 function gameController(){
     let winner;
     let moveCounter=0;
-    const players=[{name:'player_1',token:'X'},{name:'player_2',token:'O'}];
+    const players=[{name:'Player1',token:'X'},{name:'Player2',token:'O'}];
     const changePlayerName=(player,newName)=>{players[player].name=newName};
     const getWinner=()=>winner;
     const board=gameSet();
@@ -99,12 +97,60 @@ function gameController(){
     };
     return {changePlayerName,makeMove,getCounter,getPlayer,getWinner};
 }
+function DOMControl(){
+    var gc=gameController();
+    const form=document.querySelector('#form1');
+    const formContainer=document.querySelector('#form-container');
+    const board=document.querySelector('#container-all');
+    const fields=document.querySelectorAll('.field');
+    const paraWinner=document.querySelector('#winner-p');
+    const paraTurn=document.querySelector('#turn-p');
+    const refreshButton=document.querySelector('#refresh-button');
 
+    const processStartingButton=(event)=>{
+        event.preventDefault();
+        let player1=document.querySelector('#player1').value;
+        let player2=document.querySelector('#player2').value;
+        if(player1 && player2){
+            gc.changePlayerName(0,player1);
+            gc.changePlayerName(1,player2);
+        }
+        event.srcElement.reset();
+        formContainer.style.setProperty('display','none');
+        board.style.setProperty('display','flex');
+    }
+    form.addEventListener('submit',processStartingButton);
 
-let i=gameController();
-i.makeMove(0,0);
-i.makeMove(1,0);
-i.makeMove(0,1);
-i.makeMove(2,0);
-i.makeMove(0,2);
-console.log('Winner is '+i.getPlayer(i.getWinner()));
+    const updatingScreen=(event)=>{
+        let posX=event.srcElement.dataset.x;
+        let posY=event.srcElement.dataset.y;
+        if(gc.getCounter() % 2===0) {
+            paraTurn.innerText=`${gc.getPlayer('O')}'s turn!`;
+            event.srcElement.innerText='X';
+        }
+        else{
+            paraTurn.innerText=`${gc.getPlayer('X')}'s turn!`;
+            event.srcElement.innerText='O';
+        }                     
+        gc.makeMove(posX,posY);
+        event.srcElement.style.setProperty('pointer-events','none');
+        const winnerToken=gc.getWinner();
+        if(winnerToken){
+            paraTurn.innerText='';
+            event.target.parentNode.style.setProperty('pointer-events','none');
+            paraWinner.style.setProperty('display','flex');
+            refreshButton.style.setProperty('display','flex');
+            if(gc.getWinner()==='Tie') paraWinner.innerText='Tied';
+            else paraWinner.innerText=`Winner is ${gc.getPlayer(winnerToken)}`;
+        }
+    }
+    fields.forEach(field=>{
+        field.addEventListener('click',updatingScreen);
+    })
+
+    refreshButton.addEventListener('click',()=>{window.location.reload()});
+    
+
+};
+
+DOMControl();
